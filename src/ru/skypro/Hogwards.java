@@ -26,10 +26,38 @@ public class Hogwards {
     private void printAll(Object[] o) { // внутренний метод печати студентов любого факультета
         for (Object i : o) {
             if (i != null) {
-                System.out.println(i);
+               System.out.println(i);
             }
         }
-
+    }
+// ********** альтернативный поиск конкретного студента ************  (внутренний метод)
+    private int[] alternatetiveSearchOfStudent(String student) {
+        int[] sStud = new int[2];
+        for (int i=0; i < griff.length; i++) {
+            if (griff[i] != null && griff[i].getName().equals(student)) {
+                sStud[0] = 1; // griff
+                sStud[1] = i;
+                return sStud;
+            }
+            if (slyth[i] != null && slyth[i].getName().equals(student)) {
+                sStud[0] = 2; // slyth
+                sStud[1] = i;
+                return sStud;
+            }
+            if (rave[i] != null && rave[i].getName().equals(student)) {
+                sStud[0] = 3; // rave
+                sStud[1] = i;
+                return sStud;
+            }
+            if (huffle[i] != null && huffle[i].getName().equals(student)) {
+                sStud[0] = 4; // huffle
+                sStud[1] = i;
+                return sStud;
+            }
+        }
+        sStud[0] = 0; // нет совпадений
+        sStud[1] = 0;
+        return sStud;
     }
 
 
@@ -73,11 +101,13 @@ public class Hogwards {
 
     // ********** печатаем качества конкретного студента ******************************
     public void printAllAboutStudent(String student) {
-        int whatId = searchStudent(student);
-        if (whatFaculty == 0) {
+        int[] sStud = alternatetiveSearchOfStudent(student);
+        int whatId = sStud[1];
+        int whatFac = sStud[0];
+        if (whatFac == 0) {
             return;
         }
-        switch (whatFaculty) {
+        switch (whatFac) {
             case 1:
                 System.out.println(griff[whatId]);
                 break;
